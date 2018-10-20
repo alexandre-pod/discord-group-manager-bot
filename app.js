@@ -43,7 +43,7 @@ client.on('message', msg => {
 
   // Check the availability of the guild before reading data
   // see: https://discord.js.org/#/docs/main/stable/class/Guild
-  if (!msg.guild.available) return;
+  if (!msg.guild || !msg.guild.available) return;
 
   const botGuildMember = msg.guild.member(msg.guild.client.user);
 
