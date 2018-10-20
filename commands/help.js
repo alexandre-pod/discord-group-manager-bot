@@ -4,7 +4,7 @@ const {sendTemporaryMsgResponse} = require('../utils');
 
 module.exports = {
   handler: function(botGuildMember, message, userPermission, args) {
-    let response = "List of commands:\n";
+    let response = "List of commands:```\n";
     for (let cmdName in commands) {
       const command = commands[cmdName];
 
@@ -13,7 +13,7 @@ module.exports = {
       response += command.getUsage() + '\n';
     }
 
-    sendTemporaryMsgResponse(message, response, TIMEOUT_MESSAGE);
+    sendTemporaryMsgResponse(message, response + '```', TIMEOUT_MESSAGE);
   },
   getUsage: function(userPermission) {
     return `${COMMAND_PREFIX}help`;
