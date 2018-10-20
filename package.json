@@ -1,0 +1,17 @@
+{
+  "name": "discord-group-manager-bot",
+  "version": "1.0.0",
+  "description": "Discord bot allowing Role manipulation from chat",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [],
+  "author": "alexandre-pod <https://github.com/alexandre-pod>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^11.4.2"
+  },
+  "devDependencies": {}
+}
