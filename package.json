@@ -1,6 +1,6 @@
 {
   "name": "discord-group-manager-bot",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Discord bot allowing Role manipulation from chat",
   "main": "app.js",
   "scripts": {

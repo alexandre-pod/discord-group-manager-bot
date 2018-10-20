@@ -3,11 +3,11 @@ const {searchBotRole, answerError, answerSuccess} = require('../utils');
 
 module.exports = {
   handler: function(botGuildMember, message, userPermission, args) {
-    if (args.length != 1) {
+    if (args.length == 0) {
       answerError(message, `Missing argument\nCorrect usage: ${this.getUsage()}`);
       return;
     }
-    const wantedRole = args[0];
+    const wantedRole = args.join(' ');
 
     if (searchBotRole(botGuildMember, wantedRole) !== null) {
       answerError(message, `A group named '${wantedRole}' already exists`);

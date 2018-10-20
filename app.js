@@ -47,7 +47,7 @@ client.on('message', msg => {
 
   const botGuildMember = msg.guild.member(msg.guild.client.user);
 
-  const commandParts = msg.content.slice(COMMAND_PREFIX.length).split(/\s/);
+  const commandParts = msg.content.slice(COMMAND_PREFIX.length).split(' ');
   const cmdName = commandParts[0];
   const args = commandParts.slice(1);
 
