@@ -1,10 +1,10 @@
 const {COMMAND_PREFIX, USER_PERMISSION} = require('../config.js');
-const {searchBotRole} = require('../utils');
+const {searchBotRole, answerError, answerSuccess} = require('../utils');
 
 module.exports = {
   handler: function(botGuildMember, message, userPermission, args) {
     if (args.length != 1) {
-      message.reply('Missing argument\nCorrect usage: ' + this.getUsage());
+      answerError(message, `Missing argument\nCorrect usage: ${this.getUsage()}`);
       return;
     }
     const wantedRole = args[0];
@@ -12,9 +12,11 @@ module.exports = {
     let role = searchBotRole(botGuildMember, wantedRole);
 
     if (role == null) {
-      message.reply(`Unknown group: ${wantedRole}`);
+      answerError(message, `Unknown group: ${wantedRole}`);
     } else {
-      message.member.removeRole(role.id);
+      message.member.removeRole(role.id)
+        .then(_ => answerSuccess(message))
+        .catch(_ => answerError(message));
     }
   },
   getUsage: function(userPermission) {

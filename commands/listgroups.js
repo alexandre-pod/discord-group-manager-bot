@@ -1,5 +1,5 @@
-const {COMMAND_PREFIX, USER_PERMISSION} = require('../config.js');
-const {getBotRoles} = require('../utils');
+const {COMMAND_PREFIX, USER_PERMISSION, TIMEOUT_MESSAGE} = require('../config.js');
+const {getBotRoles, sendTemporaryMsgResponse} = require('../utils');
 
 module.exports = {
   handler: function(botGuildMember, message, userPermission, args) {
@@ -9,7 +9,7 @@ module.exports = {
       response += role.name + '\n';
     }
 
-    message.reply(response);
+    sendTemporaryMsgResponse(message, response, TIMEOUT_MESSAGE);
   },
   getUsage: function(userPermission) {
     return `${COMMAND_PREFIX}listgroups`;

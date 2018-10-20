@@ -12,6 +12,7 @@ if (require('./config.js').BOT_SECRET == '<YOUR_BOT_TOKEN>') {
 
 
 const {BOT_SECRET, COMMAND_PREFIX, USER_PERMISSION, ADMIN_PERMISSION} = require('./config.js');
+const {answerError} = require('./utils');
 
 const Discord = require('discord.js');
 const client = new Discord.Client();
@@ -52,8 +53,10 @@ client.on('message', msg => {
 
   const command = commands[cmdName];
 
-  if (command === undefined) return;
-
+  if (command === undefined) {
+    answerError(msg, `Unknown command: ${cmdName}`);
+    return;
+  }
 
   const userPermission = msg.member.hasPermission("ADMINISTRATOR") ? ADMIN_PERMISSION : USER_PERMISSION;
 
@@ -62,10 +65,10 @@ client.on('message', msg => {
       command.handler.bind(command)(botGuildMember, msg, userPermission, args);
     } catch (e){
       console.error(e);
-      msg.reply("Unexpected error");
+      answerError(msg);
     }
   } else {
-    msg.reply("you are not permitted to execute this command");
+    answerError(msg, "you are not permitted to execute this command");
   }
 });
 

@@ -1,6 +1,9 @@
 module.exports = {
   getBotRoles,
-  searchBotRole
+  searchBotRole,
+  answerSuccess,
+  answerError,
+  sendTemporaryMsgResponse,
 };
 
 function *getBotRoles(botGuildMember) {
@@ -19,4 +22,22 @@ function searchBotRole(botGuildMember, roleName) {
     }
   }
   return null;
+}
+
+function answerSuccess(message, details="") {
+  message.react("✅");
+}
+
+function answerError(message, details="Unknown error") {
+  console.debug(`answer error: ${details}`);
+  console.debug(`message: ${message.content}`);
+  message.react("🚫");
+}
+
+function sendTemporaryMsgResponse(message, response, timeout=1000) {
+  message.reply(response)
+    .then(sent => {
+      setTimeout(sent.delete.bind(sent), timeout);
+    })
+    .catch(console.error);
 }

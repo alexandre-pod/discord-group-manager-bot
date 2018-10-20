@@ -1,10 +1,10 @@
 const {COMMAND_PREFIX, ADMIN_PERMISSION} = require('../config.js');
-const {searchBotRole} = require('../utils');
+const {searchBotRole, answerError, answerSuccess} = require('../utils');
 
 module.exports = {
   handler: function(botGuildMember, message, userPermission, args) {
     if (args.length != 1) {
-      message.reply('Missing argument\nCorrect usage: ' + this.getUsage());
+      answerError(message, `Missing argument\nCorrect usage: ${this.getUsage()}`);
       return;
     }
     const wantedRole = args[0];
@@ -13,17 +13,17 @@ module.exports = {
     let role = searchBotRole(botGuildMember, wantedRole);
 
     if (role === null) {
-      message.reply(`Unknown group '${wantedRole}'`);
+      answerError(message, `Unknown group '${wantedRole}'`);
       return;
     }
 
     role.delete()
     .then(deleted => {
-      message.reply(`group '${deleted.name}' deleted`);
+      answerSuccess(message);
     })
     .catch((err) => {
       console.error(err);
-      message.reply("An error occured while trying to deleting the group");
+      answerError(message, "An error occured while trying to deleting the group");
     });
   },
   getUsage: function(userPermission) {
